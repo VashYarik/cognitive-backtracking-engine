@@ -45,7 +45,8 @@ describe("class_session", () => {
 
   it("accepts a current concept of its own course", async () => {
     const courseId = await insertCourse(db());
-    const concept = await insertConcept(db(), courseId, { isRoot: true });
+    // Root and goal, so it is also in the goal's scope (spec 4.15).
+    const concept = await insertConcept(db(), courseId, { isRoot: true, isGoal: true });
     await insertSession(db(), courseId, { currentConceptId: concept });
   });
 

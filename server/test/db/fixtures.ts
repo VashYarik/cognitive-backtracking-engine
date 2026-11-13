@@ -37,13 +37,19 @@ export async function insertCourse(db: Client): Promise<Id> {
 export function insertConcept(
   db: Client,
   courseId: Id,
-  options: { isRoot?: boolean; isCritical?: boolean } = {},
+  options: { isRoot?: boolean; isCritical?: boolean; isGoal?: boolean } = {},
 ): Promise<Id> {
   return insertReturningId(
     db,
-    `INSERT INTO concept (course_id, title, is_root, is_critical)
-     VALUES ($1, $2, $3, $4) RETURNING id`,
-    [courseId, unique("concept"), options.isRoot ?? false, options.isCritical ?? false],
+    `INSERT INTO concept (course_id, title, is_root, is_critical, is_goal)
+     VALUES ($1, $2, $3, $4, $5) RETURNING id`,
+    [
+      courseId,
+      unique("concept"),
+      options.isRoot ?? false,
+      options.isCritical ?? false,
+      options.isGoal ?? false,
+    ],
   );
 }
 
@@ -92,10 +98,11 @@ export function insertPulse(db: Client, sessionId: Id, conceptId: Id): Promise<I
   );
 }
 
-// A course with a root concept, an approved tree, a session and one pulse.
+// A course with one concept that is both root and goal (so it is in the goal's
+// scope), an approved tree, a session and one pulse.
 export async function insertPulseSetup(db: Client) {
   const courseId = await insertCourse(db);
-  const conceptId = await insertConcept(db, courseId, { isRoot: true });
+  const conceptId = await insertConcept(db, courseId, { isRoot: true, isGoal: true });
   const sessionId = await insertSession(db, courseId);
   const pulseId = await insertPulse(db, sessionId, conceptId);
   return { courseId, conceptId, sessionId, pulseId };
