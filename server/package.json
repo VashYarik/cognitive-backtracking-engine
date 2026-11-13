@@ -9,7 +9,8 @@
   "scripts": {
     "test": "node scripts/test.mjs",
     "typecheck": "tsc --noEmit",
-    "migrate": "node --env-file=../.env src/db/migrate.ts"
+    "migrate": "node --env-file=../.env src/db/migrate.ts",
+    "start": "node --env-file=../.env src/server.ts"
   },
   "devDependencies": {
     "@types/node": "24.19.2",
@@ -19,6 +20,7 @@
     "vitest": "5.0.5"
   },
   "dependencies": {
+    "fastify": "5.12.7",
     "pg": "8.23.1"
   }
 }
