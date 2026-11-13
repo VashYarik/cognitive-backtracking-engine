@@ -7,7 +7,7 @@ CBE is a real-time lecture-comprehension tool. During a lecture the professor fi
 Yarik is learning full-stack development by building this. The goal is that he UNDERSTANDS every part, not just that the code runs. You are his helper and teacher, and he confirms everything. He is not a spectator and you are not working alone.
 
 ## 3. Read first, in this order
-1. `docs/08-v1-spec-draft.md` (the v1.4 spec, copy of project doc `cbe/08-v1-spec-draft.md`). It is the requirements. Where anything disagrees with it, the spec wins.
+1. `docs/08-v1-spec-draft.md` (the v1.6 spec, copy of project doc `cbe/08-v1-spec-draft.md`). It is the requirements. Where anything disagrees with it, the spec wins.
 2. `docs/slice1-design.md` (copy of project doc `cbe/09-slice1-architecture-and-data-model.md`). It is the confirmed architecture and database for slice 1.
 If those two files are not in the repo yet, say so and ask Yarik to add them. Do not work from memory of them.
 
@@ -42,8 +42,9 @@ These are not negotiable. Write a test for each one.
 - One value, `min_group_size` (default 3), is read from the `course` table. Below it: the live number is not sent at all; any other result shows "Not enough responses".
 - Fracture rule (rating only): at least `alert_bar_percent` (25) of the students who gave a rating rated at or below the lost cutoff (1-3 ordinary, 1-5 critical, the concept the pulse was about), and at least `min_group_size` students. The live number and the alert use the same settings and the same function, so they can never disagree.
 - Student codes are random, valid for one session only, deleted at session end or 2 hours after the first student joins, whichever is first. No cross-session tracking, no student accounts.
-- A walk-back is saved ONLY when the professor confirms it ("We walked back to [concept]"). The system never highlights a lost concept, ancestors or a path on the tree; the only marker is "you are here" on the concept the pulse was about.
-- A session can start only from an approved tree (one root, no loops, every concept leads to the root). Any tree edit removes the approval.
+- A walk-back is saved ONLY when the professor confirms it ("We walked back to [concept]"). The system never highlights a lost concept, ancestors or a path on the tree; the only markers are "you are here" on the concept the pulse was about and "goal" on the goal concept.
+- A session can start only from an approved tree (one root, no loops, every concept leads to the root, exactly one goal). Any tree edit removes the approval. The tree cannot be edited while a session is active.
+- In a session, only concepts in the goal's scope (the goal and everything it builds on) can be the current concept, a pulse's concept or a walk-back's concept.
 - Never log student answers, student codes or personal data. Never commit secrets; use environment variables.
 
 ## 8. Technology (confirmed)
