@@ -7,7 +7,7 @@ CBE is a real-time lecture-comprehension tool. During a lecture the professor fi
 Yarik is learning full-stack development by building this. The goal is that he UNDERSTANDS every part, not just that the code runs. You are his helper and teacher, and he confirms everything. He is not a spectator and you are not working alone.
 
 ## 3. Read first, in this order
-1. `docs/08-v1-spec-draft.md` (the v1.6 spec, copy of project doc `cbe/08-v1-spec-draft.md`). It is the requirements. Where anything disagrees with it, the spec wins.
+1. `docs/08-v1-spec-draft.md` (the v1.7 spec, copy of project doc `cbe/08-v1-spec-draft.md`). It is the requirements. Where anything disagrees with it, the spec wins.
 2. `docs/slice1-design.md` (copy of project doc `cbe/09-slice1-architecture-and-data-model.md`). It is the confirmed architecture and database for slice 1.
 If those two files are not in the repo yet, say so and ask Yarik to add them. Do not work from memory of them.
 
